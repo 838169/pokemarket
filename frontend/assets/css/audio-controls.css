@@ -1,0 +1,143 @@
+.sound-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    border: 1px solid #b5d2bd66;
+    border-radius: 50%;
+    color: #f1e2a8;
+    background: #10251fed;
+    cursor: pointer;
+    box-shadow: 0 3px 15px #0004;
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+.sound-toggle:hover {
+    background: #2b4938;
+}
+.sound-toggle:active {
+    transform: scale(0.95);
+}
+.sound-toggle:focus-visible {
+    outline: 3px solid #efcf81;
+    outline-offset: 3px;
+}
+.sound-toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.sound-toggle[aria-pressed='true'] .sound-off,
+.sound-toggle[aria-pressed='false'] .sound-on {
+    display: none;
+}
+.home-scene > .sound-toggle {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    z-index: 5;
+}
+.battle-view {
+    position: relative;
+}
+.arena-opciones .sound-toggle {
+    margin-left: 6px;
+}
+@media (max-width: 650px) {
+    .home-scene > .sound-toggle {
+        right: 12px;
+        bottom: 12px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sound-toggle {
+        transition: none;
+    }
+}
+
+html[data-audio-hosted] .sound-toggle {
+    display: none;
+}
+.audio-settings {
+    position: fixed;
+    inset: max(12px, env(safe-area-inset-top)) 0 max(12px, env(safe-area-inset-bottom));
+    margin: auto;
+    block-size: fit-content;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    width: min(420px, calc(100% - 32px));
+    max-height: calc(100dvh - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+    box-sizing: border-box;
+    padding: 22px;
+    border: 1px solid #48607c;
+    border-radius: 18px;
+    background: #142038;
+    color: #edf4ff;
+    font:
+        16px/1.5 system-ui,
+        sans-serif;
+}
+.audio-settings::backdrop {
+    background: #050a16bf;
+}
+.audio-settings h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+}
+.audio-settings form {
+    float: right;
+    margin-left: 8px;
+}
+.audio-settings button {
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid #48607c;
+    border-radius: 10px;
+    background: #21334c;
+    color: inherit;
+    font-size: 22px;
+    cursor: pointer;
+}
+.audio-master {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+}
+.audio-channel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    margin-top: 14px;
+}
+.audio-channel output {
+    color: #ffe16a;
+}
+.audio-channel input {
+    grid-column: 1/-1;
+    width: 100%;
+    min-height: 44px;
+    margin: 0;
+}
+.audio-settings input {
+    accent-color: #ffe16a;
+}
+.audio-settings .audio-save {
+    width: 100%;
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    background: #ffe16a;
+    color: #15213a;
+}
+.audio-settings .audio-save:disabled {
+    opacity: 0.55;
+    cursor: default;
+}

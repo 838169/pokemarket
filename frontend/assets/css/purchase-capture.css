@@ -1,0 +1,190 @@
+.purchase-capture {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #0c1733ed;
+    color: #edf3ff;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+}
+.purchase-capture::backdrop {
+    background: #050b17cc;
+    backdrop-filter: blur(10px);
+}
+.purchase-capture-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+.purchase-capture-video {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 78%;
+    object-fit: contain;
+}
+.purchase-capture-flash {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+}
+.purchase-capture[data-mode='video'] .purchase-capture-video {
+    display: block;
+}
+.purchase-capture-companion {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: clamp(150px, 23vh, 220px);
+    height: clamp(150px, 23vh, 220px);
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 18px 20px #0005);
+}
+.purchase-capture-ball {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 5px solid #17243f;
+    background: linear-gradient(#ec5668 0 46%, #17243f 46% 55%, #eef3ff 55%);
+    box-shadow:
+        inset -14px -10px 0 #17243f20,
+        0 15px 30px #0005;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+.purchase-capture-ball span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    background: #f8fbff;
+    border: 7px solid #17243f;
+    border-radius: 50%;
+}
+.purchase-capture-caption {
+    position: absolute;
+    top: 66%;
+    left: 24px;
+    right: 24px;
+    text-align: center;
+}
+.purchase-capture-caption > span {
+    font-size: 13px;
+    color: #edcc77;
+}
+.purchase-capture-caption h2 {
+    font:
+        650 clamp(30px, 5vw, 48px)/1.15 Outfit,
+        sans-serif;
+    margin: 10px 0;
+}
+.purchase-capture-caption p {
+    font-size: 14px;
+    color: #b6c6e1;
+}
+.purchase-capture-skip {
+    position: absolute;
+    left: 50%;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    min-height: 44px;
+    color: #e5edff;
+    background: #243957;
+    border: 1px solid #5a7197;
+}
+.purchase-capture-skip:focus-visible {
+    outline: 3px solid #ffe16a;
+    outline-offset: 4px;
+}
+.purchase-capture[data-mode='video'] .purchase-capture-ball {
+    display: none;
+}
+.purchase-capture[data-mode='video'] .purchase-capture-companion {
+    top: 62%;
+}
+.purchase-capture[data-mode='video'] .purchase-capture-caption {
+    top: auto;
+    bottom: 100px;
+}
+.purchase-capture[data-mode='video'] .purchase-capture-caption h2 {
+    font-size: 32px;
+}
+.purchase-capture[data-mode='fallback'] .purchase-capture-companion {
+    animation: capture-companion-short 1.9s ease-in-out both;
+}
+.purchase-capture[data-mode='fallback'] .purchase-capture-ball {
+    animation: capture-ball-short 1.9s ease-out both;
+}
+@keyframes capture-companion-short {
+    0%,
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50%,
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.1);
+    }
+}
+@keyframes capture-ball-short {
+    0%,
+    20% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-8deg) scale(1);
+    }
+    65% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(8deg) scale(1);
+    }
+    80%,
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0);
+        box-shadow: 0 0 45px #edcc7770;
+    }
+}
+@media (max-height: 500px) {
+    .purchase-capture-caption {
+        top: 61%;
+    }
+    .purchase-capture-caption h2 {
+        margin: 5px 0;
+        font-size: 28px;
+    }
+    .purchase-capture-companion {
+        width: 120px;
+        height: 120px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .purchase-capture *,
+    .purchase-capture *::before,
+    .purchase-capture *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    .purchase-capture-ball,
+    .purchase-capture-video {
+        display: none !important;
+    }
+}

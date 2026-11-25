@@ -1,0 +1,56 @@
+.game-error,
+.game-loading {
+    color: #edf4ff;
+    background: #0b1428;
+    font: 16px/1.5 system-ui, sans-serif;
+}
+.game-error {
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    margin: 0;
+    background: radial-gradient(ellipse at 50% 30%, #263c57, #0b1428 62%);
+}
+.game-loading {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(ellipse at center, #223852, #0b1428 68%);
+}
+.game-loading[hidden] { display: none; }
+.route-status {
+    width: min(390px, calc(100% - 64px));
+    padding: clamp(16px, 4vw, 32px);
+    text-align: center;
+}
+.route-status h1 { margin: 0; font-size: clamp(26px, 7vw, 40px); line-height: 1.1; }
+.route-status p { margin: 8px 0; color: #b7c9e4; }
+.route-status .route-code { color: #ffdd78; font-size: 18px; font-weight: 800; }
+.route-ball { display: block; margin: 0 auto 14px; filter: drop-shadow(0 10px 16px #050a16); }
+.route-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 14px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 9px;
+    background: #ffdd78;
+    color: #122037;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+.route-action[hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+    .game-error .route-status { animation: route-enter 260ms ease-out both; }
+    .game-loading .route-ball { animation: route-roll 1.2s ease-in-out infinite alternate; }
+}
+@keyframes route-enter { from { opacity: 0; transform: translateY(8px); } }
+@keyframes route-roll {
+    from { transform: translateX(-12px) rotate(-24deg); }
+    to { transform: translateX(12px) rotate(24deg); }
+}

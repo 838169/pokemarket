@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS game_migrations (
+ version VARCHAR(80) PRIMARY KEY, applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS carteras (
+ usuario_id INT PRIMARY KEY, monedas INT UNSIGNED NOT NULL DEFAULT 0,
+ revision INT NOT NULL DEFAULT 1, bienvenida TINYINT NOT NULL DEFAULT 0,
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS movimientos_monedas (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY, usuario_id INT NOT NULL,
+ clave VARCHAR(100) NOT NULL, concepto VARCHAR(160) NOT NULL, cantidad INT NOT NULL,
+ saldo INT NOT NULL, fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ UNIQUE KEY uq_movimiento (usuario_id,clave),
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS inventario_comida (
+ usuario_id INT NOT NULL, comida VARCHAR(30) NOT NULL, cantidad INT UNSIGNED NOT NULL DEFAULT 0,
+ PRIMARY KEY (usuario_id,comida), FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS cuidado_pokemon (
+ usuario_id INT NOT NULL, pokemon_id INT NOT NULL, energia INT NOT NULL DEFAULT 100,
+ vinculo INT NOT NULL DEFAULT 0, habitat VARCHAR(30) NOT NULL DEFAULT 'pradera',
+ ultima_comida TIMESTAMP NULL, PRIMARY KEY (usuario_id,pokemon_id),
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

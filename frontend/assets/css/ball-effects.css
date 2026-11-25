@@ -1,0 +1,430 @@
+.capture-effect {
+    --capture-accent: #ff9b87;
+    --effect-duration: 1.2s;
+}
+.ball-impact {
+    position: absolute;
+    left: 50%;
+    bottom: 48px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+.impact-particle,
+.impact-wave,
+.impact-net,
+.impact-flash {
+    position: absolute;
+    display: block;
+    opacity: 0;
+}
+.impact-particle {
+    width: 10px;
+    height: 10px;
+    background: var(--capture-accent);
+    border-radius: 50%;
+}
+.impact-wave {
+    width: 70px;
+    height: 70px;
+    margin: -35px;
+    border: 3px solid var(--capture-accent);
+    border-radius: 50%;
+}
+.capture-effect.throwing .impact-wave {
+    animation: impact-wave var(--effect-duration) ease-out both;
+}
+.capture-effect.throwing .impact-particle {
+    animation: impact-particle var(--effect-duration) ease-out both;
+}
+.capture-effect[data-ball='poke'] .impact-particle {
+    display: none;
+}
+.capture-effect[data-ball='super'] .impact-particle {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #b8efff;
+    background: radial-gradient(circle at 30% 25%, #fff9, transparent 60%);
+}
+.capture-effect[data-ball='ultra'] .impact-particle {
+    width: 5px;
+    height: 24px;
+    border-radius: 2px;
+    background: linear-gradient(#fff, #ffe16a, transparent);
+}
+.capture-effect[data-ball='ultra'] .impact-flash {
+    width: 230px;
+    height: 230px;
+    margin: -115px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff8, #ffe16a55 30%, transparent 70%);
+}
+.capture-effect[data-ball='ultra'].throwing .impact-flash {
+    animation: impact-flash var(--effect-duration) ease-out both;
+}
+.capture-effect[data-ball='ocaso'] .impact-particle {
+    width: 55px;
+    height: 45px;
+    margin: -20px;
+    border-radius: 44% 56% 53% 47%;
+    background: radial-gradient(
+        ellipse at 35% 25%,
+        #e5d4f6cc,
+        #9e89bb99 40%,
+        #64527c55 62%,
+        transparent 72%
+    );
+}
+.capture-effect[data-ball='ocaso'].throwing .impact-particle {
+    animation-name: impact-smoke;
+}
+.capture-effect[data-ball='ocaso'] .impact-wave {
+    border-width: 12px;
+    border-color: #b9a0ed33;
+}
+.capture-effect[data-ball='rapida'] .impact-particle {
+    width: 26px;
+    height: 34px;
+    border-radius: 0;
+    background: #ffe16a;
+    clip-path: polygon(55% 0, 10% 55%, 45% 50%, 30% 100%, 95% 35%, 60% 40%);
+}
+.capture-effect[data-ball='malla'] .impact-particle {
+    display: none;
+}
+.capture-effect[data-ball='malla'] .impact-net {
+    width: 140px;
+    height: 140px;
+    margin: -70px;
+    border: 2px solid #7de4d0;
+    border-radius: 18px;
+    background:
+        repeating-linear-gradient(45deg, transparent 0 17px, #7de4d077 18px 20px),
+        repeating-linear-gradient(-45deg, transparent 0 17px, #7de4d077 18px 20px);
+}
+.capture-effect[data-ball='malla'].throwing .impact-net {
+    animation: impact-net var(--effect-duration) ease-out both;
+}
+.ball-preview {
+    --effect-duration: 2.1s;
+}
+.ball-preview.throwing .impact-particle,
+.ball-preview.throwing .impact-wave,
+.ball-preview.throwing .impact-flash,
+.ball-preview.throwing .impact-net {
+    animation-iteration-count: 2;
+}
+@keyframes impact-particle {
+    0%,
+    40% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.2);
+    }
+    48% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) rotate(var(--spin)) scale(0.7);
+    }
+}
+@keyframes impact-smoke {
+    0%,
+    40% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.2);
+    }
+    55% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--dx) * 0.7), calc(var(--dy) * 0.5 - 55px))
+            rotate(var(--spin)) scale(2);
+    }
+}
+@keyframes impact-wave {
+    0%,
+    40% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+    48% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2.8);
+    }
+}
+@keyframes impact-flash {
+    0%,
+    42% {
+        opacity: 0;
+        transform: scale(0.1);
+    }
+    49% {
+        opacity: 1;
+    }
+    75%,
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+@keyframes impact-net {
+    0%,
+    40% {
+        opacity: 0;
+        transform: scale(0.1) rotate(-25deg);
+    }
+    60% {
+        opacity: 0.9;
+        transform: scale(1) rotate(8deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.4) rotate(0);
+    }
+}
+.capture-effect[data-ball='super'] {
+    --capture-accent: #84ceff;
+}
+.capture-effect[data-ball='ultra'],
+.capture-effect[data-ball='rapida'] {
+    --capture-accent: #ffe16a;
+}
+.capture-effect[data-ball='ocaso'] {
+    --capture-accent: #b9a0ed;
+}
+.capture-effect[data-ball='malla'] {
+    --capture-accent: #75dcc9;
+}
+.capture-effect .effect-ball {
+    position: absolute;
+    top: auto;
+    left: 50%;
+    bottom: 36px;
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    opacity: 0;
+}
+.capture-effect .effect-ball img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+.capture-effect.throwing .effect-ball {
+    opacity: 1;
+    animation: ball-flight 1.2s cubic-bezier(0.25, 0.7, 0.3, 1) both;
+}
+.capture-effect[data-ball='super'].throwing .effect-ball {
+    animation-name: ball-curve;
+    animation-timing-function: ease-in-out;
+}
+.capture-effect[data-ball='ultra'].throwing .effect-ball {
+    animation-name: ball-heavy;
+    animation-timing-function: cubic-bezier(0.45, 0, 0.65, 1);
+}
+.capture-effect[data-ball='rapida'].throwing .effect-ball {
+    animation-name: ball-zigzag;
+    animation-timing-function: linear;
+}
+.capture-effect[data-ball='ocaso'].throwing .effect-ball {
+    animation-name: ball-spiral;
+    animation-timing-function: ease-in-out;
+}
+.capture-effect[data-ball='malla'].throwing .effect-ball {
+    animation-name: ball-swing;
+    animation-timing-function: ease-out;
+}
+.capture-effect .effect-ball::before,
+.capture-effect .effect-ball::after {
+    content: '';
+    position: absolute;
+    inset: -24px;
+    border: 2px solid var(--capture-accent);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+.capture-effect.throwing .effect-ball::before {
+    animation: ball-ring 1.2s ease-out both;
+}
+.capture-effect.throwing .effect-ball::after {
+    animation: ball-ring 1.2s ease-out 0.12s both;
+}
+.capture-effect[data-ball='super'] .effect-ball::after {
+    border-style: dashed;
+}
+.capture-effect[data-ball='ultra'] .effect-ball::after {
+    border-width: 7px;
+    border-style: dotted;
+}
+.capture-effect[data-ball='rapida'] .effect-ball::after {
+    border-radius: 5px;
+    transform: rotate(45deg);
+}
+.capture-effect[data-ball='ocaso'] .effect-ball::after {
+    border-width: 10px;
+    border-color: #b9a0ed66;
+}
+.capture-effect[data-ball='malla'] .effect-ball::after {
+    border-radius: 12px;
+    border-style: dashed;
+}
+.capture-effect.throwing .effect-target {
+    animation: ball-absorb 1.2s ease-in-out both;
+}
+@keyframes ball-flight {
+    0% {
+        transform: translate(-100px, 100px) scale(0.6) rotate(-70deg);
+    }
+    38% {
+        transform: translate(0, -55px) scale(1.05) rotate(20deg);
+    }
+    55% {
+        transform: translate(0, 20px);
+    }
+    67% {
+        transform: translate(-3px, -10px) rotate(-12deg);
+    }
+    80% {
+        transform: translate(3px, 20px) rotate(12deg);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-curve {
+    0% {
+        transform: translate(-130px, 70px) rotate(-100deg) scale(0.6);
+    }
+    30% {
+        transform: translate(70px, -65px) rotate(60deg);
+    }
+    55% {
+        transform: translate(-35px, -15px) rotate(-25deg);
+    }
+    75% {
+        transform: translate(20px, 20px) rotate(15deg);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-heavy {
+    0% {
+        transform: translate(0, -155px) scale(0.8);
+    }
+    45% {
+        transform: translate(0, 24px) scale(1.08, 0.92);
+    }
+    65% {
+        transform: translate(0, -14px) scale(1);
+    }
+    82% {
+        transform: translate(0, 22px) scale(1.03, 0.97);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-zigzag {
+    0% {
+        transform: translate(-150px, 50px) rotate(-160deg);
+    }
+    20% {
+        transform: translate(80px, -60px) rotate(80deg);
+    }
+    40% {
+        transform: translate(-65px, -20px) rotate(-60deg);
+    }
+    60% {
+        transform: translate(35px, 15px) rotate(30deg);
+    }
+    80% {
+        transform: translate(-10px, 0);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-spiral {
+    0% {
+        transform: translate(80px, -80px) scale(0.3) rotate(-180deg);
+    }
+    25% {
+        transform: translate(-70px, -55px) scale(0.6) rotate(-90deg);
+    }
+    50% {
+        transform: translate(50px, 25px) scale(0.85) rotate(30deg);
+    }
+    75% {
+        transform: translate(-20px, -5px) scale(1) rotate(-15deg);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-swing {
+    0% {
+        transform: translate(-100px, -30px) rotate(-45deg);
+    }
+    28% {
+        transform: translate(80px, -45px) rotate(40deg);
+    }
+    50% {
+        transform: translate(-45px, -15px) rotate(-25deg);
+    }
+    72% {
+        transform: translate(25px, 5px) rotate(15deg);
+    }
+    100% {
+        transform: translate(0, 20px);
+    }
+}
+@keyframes ball-ring {
+    0%,
+    25% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    45% {
+        opacity: 0.85;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.6);
+    }
+}
+@keyframes ball-absorb {
+    0%,
+    28% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    52%,
+    100% {
+        opacity: 0;
+        transform: translateY(35px) scale(0.05);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .capture-effect .ball-impact {
+        display: none;
+    }
+    .capture-effect.throwing .effect-ball,
+    .capture-effect.throwing .effect-ball::before,
+    .capture-effect.throwing .effect-ball::after,
+    .capture-effect.throwing .effect-target {
+        animation: none;
+    }
+    .capture-effect[data-ball].throwing .effect-ball {
+        animation: none;
+    }
+    .capture-effect.throwing .effect-target {
+        opacity: 0.35;
+    }
+}

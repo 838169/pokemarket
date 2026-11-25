@@ -1,0 +1,1 @@
+ALTER TABLE duelo_busqueda ADD COLUMN IF NOT EXISTS alineacion TEXT NULL;

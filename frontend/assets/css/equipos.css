@@ -1,0 +1,484 @@
+.equipos-container {
+    width: min(1370px, calc(100% - 100px));
+    margin: 0 auto;
+    padding: 55px 0 80px;
+}
+
+.equipos-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 34px;
+}
+
+.equipos-heading h1 {
+    font-size: 46px;
+    letter-spacing: -1.5px;
+}
+
+.equipos-heading p {
+    margin-top: 10px;
+    color: var(--muted);
+}
+
+.crear-equipo {
+    flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+}
+.team-create-requirement {
+    flex: 1 0 100%;
+    color: #ffe197;
+    font-size: 13px;
+    line-height: 1.4;
+}
+.team-create-requirement:empty {
+    display: none;
+}
+
+.equipos-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.crear-equipo input,
+.slot-selector {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    font: inherit;
+}
+
+.crear-equipo button,
+.equipo-item,
+.btn-eliminar-equipo,
+.btn-quitar-miembro,
+.slot-selector {
+    font: inherit;
+}
+
+.crear-equipo button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--red);
+    color: var(--white);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-batalla {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--red);
+    color: var(--white);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-batalla:hover {
+    background: var(--red-hover);
+}
+
+.crear-equipo button:disabled,
+.btn-eliminar-equipo:disabled,
+.btn-quitar-miembro:disabled,
+.slot-selector:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.equipos-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px;
+}
+
+.lista-equipos,
+.detalle-equipo {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.lista-equipos {
+    padding: 12px;
+    align-self: start;
+}
+
+.equipo-item {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.equipo-item:hover,
+.equipo-item.activo {
+    background: rgba(239, 62, 70, 0.12);
+}
+
+.equipo-item span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.detalle-equipo {
+    min-height: 430px;
+    padding: 28px;
+}
+
+.cabecera-equipo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.cabecera-equipo h2 {
+    font-size: 28px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.cabecera-equipo > div {
+    min-width: 0;
+}
+.team-name h2 {
+    flex: 0 1 auto;
+}
+.team-name button {
+    flex: 0 0 44px;
+}
+#renombrarEquipo {
+    width: min(460px, calc(100% - 24px));
+    max-height: calc(100dvh - 24px);
+}
+#formRenombrarEquipo .profile-handle-actions {
+    justify-content: flex-end;
+}
+#cancelarRenombrarEquipo:not(:disabled) {
+    background: #172840;
+    color: #e5efff;
+}
+
+.cabecera-equipo p,
+.empty-equipo p,
+.equipos-mensaje {
+    color: var(--muted);
+}
+
+.btn-eliminar-equipo,
+.btn-quitar-miembro {
+    border: 1px solid rgba(239, 62, 70, 0.45);
+    border-radius: 9px;
+    background: rgba(239, 62, 70, 0.1);
+    color: var(--red);
+    cursor: pointer;
+}
+
+.btn-eliminar-equipo {
+    padding: 10px 14px;
+}
+
+.equipo-slots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.equipo-slot {
+    min-height: 180px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.018);
+}
+
+.slot-numero {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.slot-pokemon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 67px;
+}
+
+.slot-pokemon img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+}
+
+.slot-pokemon button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+}
+
+.slot-vacio {
+    min-height: 67px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    text-align: center;
+}
+
+.btn-quitar-miembro {
+    min-height: 38px;
+}
+
+.empty-equipo {
+    min-height: 350px;
+    display: grid;
+    place-content: center;
+    text-align: center;
+}
+
+.equipos-mensaje {
+    min-height: 24px;
+    margin: -16px 0 18px;
+}
+
+.equipos-mensaje.error {
+    color: var(--red);
+}
+
+@media (max-width: 900px) {
+    .equipos-container {
+        width: min(100% - 32px, 1370px);
+    }
+    .equipos-heading,
+    .cabecera-equipo {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .equipos-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .equipos-layout {
+        grid-template-columns: 1fr;
+    }
+    .equipo-slots {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .equipos-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .crear-equipo {
+        width: 100%;
+        flex-direction: column;
+    }
+    .crear-equipo input {
+        width: 100%;
+    }
+    .equipo-slots {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+.equipos-container .equipos-heading {
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.equipos-container .crear-equipo button {
+    background: #efcf78;
+    color: #172033;
+}
+.equipos-container .crear-equipo button[data-game-locked='true'] {
+    background: #283044;
+    color: #ffe197;
+}
+.equipos-container .equipos-actions .btn-batalla {
+    background: #263951;
+    color: #edf4ff;
+}
+.equipos-container .lista-equipos,
+.equipos-container .detalle-equipo {
+    background: #142038;
+    border-color: #344963;
+    min-width: 0;
+}
+.equipos-container .equipo-item.activo {
+    background: #333c57;
+    border-inline-start: 3px solid #ffcd75;
+}
+.equipos-container .equipo-item strong,
+.equipos-container .cabecera-equipo h2 {
+    overflow-wrap: anywhere;
+}
+.equipos-container .equipo-slot {
+    padding: clamp(8px, 2vw, 16px);
+    background: #192a43;
+    border-color: #3b506b;
+    min-width: 0;
+}
+.equipos-container .slot-pokemon {
+    flex-direction: column;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+}
+.equipos-container .slot-pokemon img {
+    width: min(100%, 112px);
+    height: 92px;
+}
+.equipos-container .slot-pokemon button {
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+.equipos-container .slot-vacio {
+    flex: 1;
+    min-height: 100px;
+    border: 1px dashed #4e6480;
+    border-radius: 10px;
+    font-size: 13px;
+}
+.equipos-container .slot-selector {
+    width: 100%;
+    min-height: 44px;
+    background: #253b56;
+    color: #f4df9d;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: auto;
+}
+.equipos-container .btn-quitar-miembro {
+    min-height: 44px;
+}
+.team-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 112px), 1fr));
+    gap: 8px;
+}
+#selectorEquipoPokemon {
+    width: min(600px, calc(100% - 24px));
+}
+#selectorEquipoPokemon .team-picker-card {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 3px;
+    padding: 8px 4px;
+    overflow-wrap: anywhere;
+}
+.team-picker-card img {
+    object-fit: contain;
+}
+.team-picker-card small {
+    color: #bdcfe3;
+}
+#estadoSelectorEquipo {
+    margin-top: 10px;
+    color: #f4df9d;
+}
+#estadoSelectorEquipo:empty {
+    display: none;
+}
+@media (max-width: 560px) {
+    .equipos-container .detalle-equipo {
+        padding: 12px;
+    }
+    .equipos-container .equipo-slots {
+        gap: 8px;
+    }
+    .equipos-container .cabecera-equipo {
+        gap: 10px;
+    }
+}
+.equipos-container .equipo-slot {
+    position: relative;
+    min-height: 168px;
+    overflow: hidden;
+    background: #101d30;
+}
+.equipos-container .slot-ocupado {
+    background: #293047;
+    border-color: #648b99;
+}
+.equipos-container .slot-numero {
+    font-variant-numeric: tabular-nums;
+    color: #9cb6d1;
+}
+.equipos-container .equipo-slot:not(.slot-ocupado) {
+    border-style: dashed;
+}
+.equipos-container .equipo-slot:not(.slot-ocupado) .slot-selector {
+    flex: 1;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+    border: 0;
+    background: transparent;
+    color: #c4d6e9;
+    font-size: 13px;
+}
+.equipos-container .equipo-slot:not(.slot-ocupado) .slot-selector span {
+    display: grid;
+    place-items: center;
+    width: 37px;
+    height: 37px;
+    border: 1px solid #6887a3;
+    border-radius: 50%;
+    color: #ffe16a;
+    font-size: 23px;
+}
+.equipos-container .equipo-slot .slot-selector:hover {
+    background: #2a415b;
+}
+.equipos-container .slot-pokemon small {
+    color: #bdebd4;
+}
+.equipos-container .btn-quitar-miembro {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #ffd1ce;
+    font-size: 24px;
+}
+.team-capacity {
+    width: min(160px, 100%);
+    accent-color: #efcf78;
+}
+.team-limit {
+    color: #bcd1eb;
+    margin-bottom: 12px;
+    font-size: 14px;
+}

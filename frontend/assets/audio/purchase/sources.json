@@ -1,0 +1,32 @@
+[
+  {
+    "file": "arrival.ogg",
+    "source": "Audio/maximize_008.ogg",
+    "sha256": "57c074e600e193a303ce781c04c0ccc191c6030f9f106594fd94a65e55435c17"
+  },
+  {
+    "file": "energy.ogg",
+    "source": "Audio/open_003.ogg",
+    "sha256": "bcdca6b5c9c33aa15ca3fb18a1fa8d98a01b528b85be08c5a610e57c75fc022d"
+  },
+  {
+    "file": "lock.ogg",
+    "source": "Audio/close_001.ogg",
+    "sha256": "44af8249b933e0fd35ec957a638bb1a0b01f85b53fbe9674bf77bd3ca3168ef4"
+  },
+  {
+    "file": "tick.ogg",
+    "source": "Audio/tick_001.ogg",
+    "sha256": "9d057b918024c787bbe6c00beed13a7ef72a3fa0c259add3cef36582792f4230"
+  },
+  {
+    "file": "success.ogg",
+    "source": "Audio/confirmation_002.ogg",
+    "sha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c"
+  },
+  {
+    "file": "receipt.ogg",
+    "source": "Audio/select_001.ogg",
+    "sha256": "aec0c31ea934a35936ae0d2ab8fac8123c93aa5647f935853a58dbaf90278b7a"
+  }
+]

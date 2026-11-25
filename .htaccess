@@ -1,0 +1,25 @@
+Options -Indexes
+ErrorDocument 403 /pokemarket/error.php
+ErrorDocument 404 /pokemarket/error.php
+ErrorDocument 500 /pokemarket/error.php
+ErrorDocument 503 /pokemarket/error.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^api/(?:pokemon|entrenadores)/ frontend/gateway.php [END]
+    RewriteRule ^(?:\.|api(?:/|$)|backend(?:/|$)|frontend(?:/|$)|anti-slop(?:/|$)|graphify-out(?:/|$)|config(?:/|$)|database(?:/|$)|docs(?:/|$)|tests(?:/|$)|tools(?:/|$)|partials(?:/|$)|node_modules(?:/|$)|reports(?:/|$)|pokemon-service(?:/|$)|trainer-service(?:/|$)) - [F,L]
+    RewriteRule ^$ frontend/pages/index.php [END]
+    RewriteRule ^((?:index|login|registro|catalogo|coleccion|equipos|batalla|explorar|pokeballs|alimentos|amigos|error)\.php)$ frontend/pages/$1 [END]
+    RewriteRule ^(assets/.+)$ frontend/$1 [END]
+</IfModule>
+
+<FilesMatch "(?i)(^\.|\.(?:sql|csv|md|py|ps1|json|ya?ml|lock|toml)$)">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Content-Security-Policy "frame-ancestors 'self'"
+</IfModule>

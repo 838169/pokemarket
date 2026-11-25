@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs><radialGradient id="bread" cx=".35" cy=".25" r=".8"><stop stop-color="#ffdaaa"/><stop offset=".65" stop-color="#d79a60"/><stop offset="1" stop-color="#a46545"/></radialGradient></defs>
+  <ellipse cx="80" cy="126" rx="57" ry="10" fill="#081528" opacity=".35"/>
+  <g transform="rotate(19 102 87)">
+    <ellipse cx="105" cy="88" rx="34" ry="26" fill="url(#bread)" stroke="#a46545" stroke-width="2"/>
+    <path d="M79 79q24-18 50 0-18 13-24 8-12 5-26-8" fill="#a7c8ec"/>
+  </g>
+  <g transform="rotate(-17 64 83)">
+    <ellipse cx="62" cy="85" rx="42" ry="31" fill="url(#bread)" stroke="#a46545" stroke-width="2"/>
+    <path d="M28 74q30-26 68 0-13 17-29 13-19 8-39-13" fill="#efa6bd"/>
+    <path d="M39 70q19-11 40-5" fill="none" stroke="#ffe0e8" stroke-width="4" stroke-linecap="round"/>
+    <path d="m48 75 4 2m15-7 4 3m8 7 4-2" stroke="#aa526b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+{
+    "name": "pokemarket",
+    "version": "1.0.0",
+    "private": true,
+    "description": "PokéMarket: proyecto académico PHP con microservicios, economía y Hogar Pokémon.",
+    "scripts": {
+        "test": "node tools/quality.mjs",
+        "test:integration": "node tools/quality.mjs --integration",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "devDependencies": {
+        "@prettier/plugin-php": "0.26.0",
+        "prettier": "3.9.10"
+    }
+}

@@ -1,0 +1,12 @@
+node_modules/
+.git/
+.local-backups/
+.env
+reports/
+backend/pokemon-service/storage/
+backend/trainer-service/storage/
+**/config/*.json
+tools/economy-data/*.csv
+package-lock.json
+frontend/assets/img/
+frontend/assets/audio/

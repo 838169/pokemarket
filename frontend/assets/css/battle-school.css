@@ -1,0 +1,617 @@
+/* A Pokémon encounter and an explicit five-step lesson. */
+.battle-page {
+    background: #101b21;
+}
+.battle-page .batalla-container {
+    width: min(1450px, calc(100% - 56px));
+    padding-top: 24px;
+}
+.battle-page .batalla-heading h1 {
+    font-size: clamp(27px, 2.6vw, 37px);
+}
+.battle-page .battle-layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 20px;
+}
+.battle-page .battle-view {
+    border: 1px solid #839c794d;
+    background: #162821;
+    border-radius: 15px;
+}
+.battle-page .arena-marcador {
+    background: #1b3029;
+    color: #c3d3c4;
+    min-height: 47px;
+}
+.battle-page .arena-opciones {
+    gap: 11px;
+    align-items: center;
+}
+.battle-page .combate-campo[data-escenario='pradera'] {
+    background-image: url('../img/battle-meadow.jpg');
+}
+.battle-page .combate-campo[data-escenario='laguna'] {
+    background-image: url('../img/adventure/laguna.png');
+}
+.battle-page .combate-campo[data-escenario='ruinas'] {
+    background-image: url('../img/adventure/modo-apuesta.png');
+}
+.plataforma {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse,
+        #c7bb86cc 0%,
+        #b9ad7bba 48%,
+        #64864a85 67%,
+        transparent 70%
+    );
+    box-shadow: 0 10px 17px #20381920;
+    pointer-events: none;
+}
+.plataforma-propia {
+    width: 35%;
+    height: 15%;
+    left: 11%;
+    bottom: 3%;
+}
+.battle-page .arena-centro {
+    display: none;
+}
+.battle-page .pokemon-datos {
+    padding: 12px 16px;
+    color: #25392e;
+    border: 2px solid #e5e3bf;
+    border-radius: 4px 21px 4px 21px;
+    background: #fffdeb;
+    box-shadow:
+        0 3px 0 #3b5041,
+        0 9px 15px #102c2233;
+}
+.battle-page .lado-rival .pokemon-datos {
+    border-left: 5px solid #a65c43;
+}
+.battle-page .lado-jugador .pokemon-datos {
+    border-left: 5px solid #56805c;
+}
+.battle-page .estado-activo {
+    color: #596456;
+    font-weight: 600;
+}
+.battle-page .pokemon-campo h2 {
+    color: #26382e;
+    font-size: clamp(19px, 1.8vw, 24px);
+}
+.battle-page .tipos-campo .type-badge {
+    color: #425341;
+    background: #e4ead3;
+    border-color: #879a6d44;
+}
+.battle-page .barra-hp {
+    height: 10px;
+    background: #bdc8b5;
+    border: 1px solid #95a28b;
+    overflow: visible;
+}
+.battle-page .barra-hp span {
+    background: #418a5e;
+    border-radius: 999px;
+}
+.battle-page .hp-texto {
+    color: #4c5c49;
+    font-weight: 700;
+    font-size: 12px;
+}
+.battle-page .pokemon-campo {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(44%, 280px);
+    height: 57%;
+}
+.battle-page .lado-jugador .pokemon-campo {
+    left: 5%;
+    bottom: 7%;
+}
+.battle-page .lado-rival .pokemon-campo {
+    right: 5%;
+    bottom: 36%;
+}
+.battle-page :is(.lado-jugador, .lado-rival) .pokemon-campo [data-sprite] {
+    inset: auto 0 0;
+    width: 100%;
+    height: 76%;
+}
+.battle-page :is(.lado-jugador, .lado-rival) .pokemon-datos {
+    position: relative;
+    inset: auto;
+    width: min(100%, 184px);
+    min-width: 0;
+    border: 1px solid #aec8b66b;
+    border-radius: 10px;
+    padding: 6px 8px;
+    background: #10251aeb;
+    color: #f1faec;
+    box-shadow: 0 4px 10px #10221760;
+}
+.battle-page .battle-vitals {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 5px;
+    margin-bottom: 4px;
+}
+.battle-page .battle-vitals h2 {
+    color: inherit;
+    font-size: clamp(12px, 2.8vw, 15px);
+    overflow-wrap: anywhere;
+}
+.battle-page .battle-vitals .hp-texto {
+    color: #daefd8;
+    margin: 0;
+    font-size: 10px;
+}
+.battle-page .pokemon-datos .barra-hp {
+    height: 6px;
+    margin: 0;
+    border: 0;
+    background: #456053;
+    overflow: hidden;
+}
+.battle-page .pokemon-datos .battle-passive {
+    margin: 3px 0 0;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+}
+.battle-page .pokemon-campo .plataforma-propia {
+    position: absolute;
+    left: 5%;
+    bottom: -5%;
+    width: 90%;
+    height: 20%;
+    border: 1px solid #b8f5d388;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse at 50% 28%,
+        #e1ffe68a,
+        #4bd2a66e 45%,
+        #216d568c 68%,
+        #123d34 100%
+    );
+    box-shadow:
+        0 5px 0 #143f36,
+        0 9px 15px #061f19a6;
+}
+.battle-impact-ring {
+    position: absolute;
+    z-index: 8;
+    width: 70px;
+    height: 70px;
+    border: 3px solid var(--attack-color);
+    border-radius: 50%;
+    box-shadow:
+        0 0 18px var(--attack-color),
+        inset 0 0 12px var(--attack-color);
+    pointer-events: none;
+}
+.battle-page .equipos-miniaturas {
+    background: #172a24;
+    border-color: #b2c49325;
+}
+.battle-page .equipos-miniaturas h3 {
+    color: #e0e8d2;
+}
+.battle-page .equipos-miniaturas h3 span {
+    color: #9cad97;
+}
+.battle-page .pokemon-reserva {
+    border-radius: 8px;
+    border-color: #d7e1bb36;
+    background: #2d4534;
+    width: 48px;
+    height: 48px;
+}
+.battle-page .pokemon-reserva.activo {
+    background: #5b784a;
+    border-color: #d9dba4;
+}
+.battle-page .pokemon-reserva:disabled:not(.activo) {
+    opacity: 0.4;
+}
+.battle-page .pokemon-reserva:not(:disabled):hover {
+    background: #4c6b45;
+    border-color: #e4d992;
+}
+.battle-page .battle-command {
+    padding: 18px;
+    background: #1b2a2c;
+    border: 1px solid #a3b49c2c;
+    border-radius: 15px;
+}
+.coach-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 1px 2px 14px;
+    color: #e8e6c9;
+}
+.coach-cabecera small {
+    display: block;
+    color: #b5c4ac;
+    font-size: 10px;
+    margin-bottom: 4px;
+}
+.coach-cabecera strong {
+    font-size: 14px;
+    font-weight: 700;
+}
+.coach-ball {
+    display: block;
+    position: relative;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border: 2px solid #eee7be;
+    border-radius: 50%;
+    background: linear-gradient(#ad5143 0 44%, #2d443a 44% 56%, #eee7be 56%);
+}
+.coach-ball::after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 3px solid #2d443a;
+    background: #eee7be;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.battle-page .guia-contextual {
+    background: #f7f2db;
+    color: #24352b;
+    border: 0;
+    border-radius: 10px;
+    padding: 19px;
+    margin: 0 0 20px;
+}
+.battle-page .guia-paso {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    color: #66704c;
+}
+.battle-page .guia-contextual h2 {
+    margin: 10px 0;
+    font-size: 23px;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: #2c3b2c;
+}
+.battle-page .guia-contextual p {
+    color: #485342;
+    font-size: 14px;
+    line-height: 1.65;
+}
+.battle-page .guia-contextual .guia-objetivo {
+    margin-top: 13px;
+    padding: 10px 0 0;
+    border-top: 1px solid #7c8e6538;
+    color: #305539;
+    font-weight: 700;
+    font-size: 12px;
+}
+.battle-page .guia-contextual .btn-batalla {
+    background: #345d42;
+    color: #fffce8;
+    margin-top: 16px;
+    min-height: 45px;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 7px;
+}
+.battle-page .guia-contextual .btn-batalla:hover {
+    background: #254832;
+}
+.battle-page .guia-ocultar {
+    position: static;
+    display: block;
+    width: fit-content;
+    height: auto;
+    margin: 14px auto 0;
+    padding: 4px;
+    font: inherit;
+    font-size: 11px;
+    color: #69735b;
+    text-decoration: underline;
+    background: transparent;
+}
+.battle-page .comando-heading {
+    font-size: 12px;
+    color: #c2d4ad;
+}
+.battle-page .ataques-titulo {
+    margin-top: 13px;
+    color: #f3f0d6;
+}
+.battle-page .movimientos {
+    margin-bottom: 0;
+}
+.battle-page .movimiento {
+    min-height: 87px;
+    background: #2b4042;
+    border-color: #d4e0bf24;
+    border-top-color: var(--move-color);
+    color: #fff9e2;
+}
+.battle-page .movimiento:hover:not(:disabled) {
+    background: #3c5351;
+}
+.battle-page .movimiento:disabled {
+    opacity: 0.3;
+    filter: saturate(0.35);
+}
+.battle-page .movimiento small {
+    color: #c3d2c9;
+}
+.battle-page .guia-highlight {
+    outline: 3px solid #edcc6a;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 7px #edcc6a24;
+}
+.battle-page .feedback-combate {
+    margin-top: 17px;
+    padding: 12px 0 0;
+    border-top: 1px solid #ffffff12;
+}
+.battle-page .mensaje-accion {
+    min-height: 0;
+    margin: 0;
+    color: #dce5d3;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0;
+}
+.battle-page .indicador-turno {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #a3b6a7;
+}
+.estado-musica {
+    display: block;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #d1c68c;
+    margin-top: 6px;
+}
+.estado-musica:empty {
+    display: none;
+}
+.battle-page .ultimo-movimiento {
+    color: #9bafa4;
+    font-size: 10px;
+}
+.ruta-tutorial {
+    border: 1px solid #b2c49730;
+    border-radius: 12px;
+    background: #1d2e28;
+    padding: 16px 21px 18px;
+    margin-bottom: 18px;
+}
+.ruta-cabecera {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 18px;
+    color: #e9ecd5;
+}
+.ruta-cabecera strong {
+    font-size: 14px;
+}
+.ruta-cabecera > span {
+    padding: 4px 8px;
+    border-radius: 5px;
+    background: #dfe6b615;
+    font-size: 11px;
+    color: #cbd3a7;
+}
+.ruta-cabecera button {
+    margin-left: auto;
+    padding: 5px 0 5px 10px;
+    background: transparent;
+    color: #b9c7a8;
+    font-size: 11px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.ruta-tutorial ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 0;
+}
+.ruta-tutorial li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    column-gap: 10px;
+    align-items: center;
+    color: #8a9e8d;
+}
+.ruta-tutorial .paso-numero {
+    grid-row: 1 / 3;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    background: #ffffff08;
+    border: 1px solid #9aa78a44;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 800;
+}
+.ruta-tutorial li > span:not(.paso-numero) {
+    font-size: 13px;
+    font-weight: 700;
+}
+.ruta-tutorial li small {
+    font-size: 10px;
+    margin-top: 3px;
+}
+.ruta-tutorial .paso-actual {
+    color: #faf1c8;
+}
+.ruta-tutorial .paso-actual .paso-numero {
+    border-color: #ebcb72;
+    background: #e4c975;
+    color: #293629;
+}
+.ruta-tutorial .paso-completo {
+    color: #c7d9b2;
+}
+.ruta-tutorial .paso-completo .paso-numero {
+    background: #355d42;
+    border-color: #7ea778;
+    color: #d3edba;
+}
+.battle-page .efecto-mensaje {
+    color: #fcf4c7;
+    background: #203d2dee;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+@media (max-width: 1100px) {
+    .battle-page .battle-layout {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 14px;
+    }
+    .battle-page .arena-marcador {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .battle-page .arena-opciones {
+        margin-left: auto;
+        flex-wrap: wrap;
+    }
+    .battle-page .guia-contextual {
+        padding: 16px;
+    }
+    .battle-page .guia-contextual h2 {
+        font-size: 21px;
+    }
+}
+@media (max-width: 780px) {
+    .battle-page .battle-layout {
+        grid-template-columns: 1fr;
+    }
+    .battle-page .ruta-tutorial {
+        padding: 14px;
+    }
+    .ruta-cabecera {
+        flex-wrap: wrap;
+        gap: 9px;
+    }
+    .ruta-cabecera strong {
+        flex: 1 1 60%;
+    }
+    .ruta-cabecera button {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    .ruta-tutorial ol {
+        gap: 6px;
+    }
+    .ruta-tutorial li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+    }
+    .ruta-tutorial li > span:not(.paso-numero) {
+        font-size: 11px;
+    }
+    .ruta-tutorial li small {
+        font-size: 9px;
+        margin: 0;
+    }
+    .battle-page .guia-contextual {
+        padding: 19px;
+    }
+    .battle-page .guia-contextual h2 {
+        font-size: 24px;
+    }
+    .battle-page .guia-contextual p {
+        font-size: 15px;
+    }
+    .battle-page .battle-command {
+        order: -1;
+    }
+    .battle-page .battle-command:not(:has(.guia-contextual:not([hidden]))) {
+        order: 0;
+    }
+    .battle-page .batalla-container {
+        width: calc(100% - 24px);
+    }
+}
+@media (max-width: 480px) {
+    .battle-page .arena-opciones {
+        gap: 8px;
+    }
+    .battle-page .arena-marcador {
+        font-size: 10px;
+        padding: 10px;
+    }
+    .battle-page .arena-marcador > #etiquetaModo {
+        flex: 1 1 auto;
+    }
+    .battle-page .arena-opciones {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .battle-page .pokemon-reserva {
+        width: 42px;
+        height: 42px;
+    }
+    .plataforma-propia {
+        width: 39%;
+        left: 7%;
+        bottom: 6%;
+    }
+}
+@media (max-width: 780px) {
+    .battle-page .battle-command {
+        display: contents;
+    }
+    .battle-page .coach-cabecera {
+        display: none;
+    }
+    .battle-page .guia-contextual {
+        order: -2;
+        margin: 0;
+        scroll-margin-top: 12px;
+    }
+    .battle-page .battle-view {
+        order: -1;
+    }
+    .battle-page .battle-actions {
+        padding: 18px;
+        background: #1b2a2c;
+        border: 1px solid #a3b49c2c;
+        border-radius: 15px;
+    }
+}
