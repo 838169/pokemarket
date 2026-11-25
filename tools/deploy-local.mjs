@@ -3,7 +3,6 @@ import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { setTimeout as sleep } from 'node:timers/promises';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const working = join(root, '.local-backups', 'operations');
@@ -65,7 +64,7 @@ function publish(candidate) {
 
 let lastAttempt;
 let observed;
-while (true) {
+function poll() {
     try {
         const candidate = snapshot();
         if (candidate.version === observed && candidate.version !== lastAttempt) {
@@ -77,5 +76,6 @@ while (true) {
         console.error('CI ERROR · ' + error.message);
         observed = undefined;
     }
-    await sleep(3000);
+    setTimeout(poll, 3000);
 }
+poll();

@@ -154,7 +154,7 @@ window.PokeDuos = (() => {
             const amigos = Array.from(form.querySelectorAll('[name=amigo]:checked'), input => Number(input.value));
             const restore = PokeMarket.esperarBoton(submit, 'Enviando invitaciones…');
             const total = form.querySelector('[name=total_pokemon]:checked').value;
-            refresh({accion:'invitar', amigos, personas:Number(form.elements.personas.value), total_pokemon:Number(total)}).finally(() => {
+            void refresh({accion:'invitar', amigos, personas:Number(form.elements.personas.value), total_pokemon:Number(total)}).finally(() => {
                 if (form.isConnected) { restore(); updateInvites(form); }
             });
         }
@@ -165,7 +165,7 @@ window.PokeDuos = (() => {
             });
             if (new Set(pokemones.map(p => p.pokemon_id)).size !== pokemones.length) { status.textContent = 'Selecciona Pokémon distintos.'; return; }
             const restore = PokeMarket.esperarBoton(submit, 'Guardando equipo…');
-            refresh({accion:'elegir', pokemones}).finally(() => { if (submit.isConnected) restore(); });
+            void refresh({accion:'elegir', pokemones}).finally(() => { if (submit.isConnected) restore(); });
         }
     });
     dialog.addEventListener('click',event=>{
@@ -179,7 +179,7 @@ window.PokeDuos = (() => {
                 : {accion:button.dataset.action};
         const label = { aceptar: 'Aceptando…', buscar: 'Iniciando búsqueda…', detener: 'Deteniendo…', salir: 'Saliendo…', cambiar: 'Cambiando…', atacar: 'Atacando…' };
         const restore = PokeMarket.esperarBoton(button, label[action.accion] || 'Guardando…');
-        refresh(action).finally(() => { if (button.isConnected) restore(); });
+        void refresh(action).finally(() => { if (button.isConnected) restore(); });
     });
     dialog.addEventListener('close', () => trigger.focus({preventScroll: true}));
     async function open() {
@@ -190,7 +190,7 @@ window.PokeDuos = (() => {
         }
         if (model) { status.textContent = ''; render(); }
     }
-    PokeEconomy.ready.then(async()=>{ await refresh(); if(new URLSearchParams(location.search).get('sala')==='duos') open(); }).catch(()=>{});
-    setInterval(()=>{if(!document.hidden)refresh();},3000);
+    PokeEconomy.ready.then(async()=>{ await refresh(); if(new URLSearchParams(location.search).get('sala')==='duos') void open(); }).catch(()=>{});
+    setInterval(()=>{if(!document.hidden)void refresh();},3000);
     return { open, get active(){return model?.sala?.estado==='activa';} };
 })();

@@ -5,6 +5,7 @@
     "description": "PokéMarket: proyecto académico PHP con microservicios, economía y Hogar Pokémon.",
     "scripts": {
         "test": "node tools/quality.mjs",
+        "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=frontend/**/*.js --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage.lcov tests/*.cjs",
         "test:integration": "node tools/quality.mjs --integration",
         "format": "prettier --write .",
         "format:check": "prettier --check ."

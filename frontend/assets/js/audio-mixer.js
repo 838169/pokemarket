@@ -110,11 +110,11 @@ window.PokeAudioMixer = (() => {
             current = null;
             pending = null;
             source = file;
-            if (enabled) start();
+            if (enabled) void start();
         }
         function toggle(value, persist = true) {
             if (enabled === Boolean(value)) {
-                if (enabled) start();
+                if (enabled) void start();
                 return;
             }
             enabled = Boolean(value);
@@ -129,11 +129,11 @@ window.PokeAudioMixer = (() => {
             if (current && !current.paused) {
                 for (const voice of voices) voice.muted = musicMuted();
                 status(enabled ? 'playing' : 'paused');
-                if (enabled) start();
+                if (enabled) void start();
                 return;
             }
             generation++;
-            if (enabled) start();
+            if (enabled) void start();
             else {
                 for (const voice of voices) fade(voice, 0, () => release(voice));
                 current = null;
@@ -154,7 +154,7 @@ window.PokeAudioMixer = (() => {
                 if (current) {
                     voices.add(current);
                     current.play().catch(() => status('blocked'));
-                } else start();
+                } else void start();
             }
         });
         return {

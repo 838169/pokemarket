@@ -169,7 +169,7 @@
                 <p id="homeCareStatus" role="status"></p>
             </dialog>
             <dialog id="homeCarePicker" class="home-dialog care-picker" aria-labelledby="homeCarePickerTitle">
-                <header><h2 id="homeCarePickerTitle"></h2><form method="dialog"><button aria-label="Volver a la ficha" autofocus>×</button></form></header>
+                <header><h2 id="homeCarePickerTitle">Cuidar Pokémon</h2><form method="dialog"><button aria-label="Volver a la ficha" autofocus>×</button></form></header>
                 <p id="homeCarePickerStatus" role="status"></p>
                 <div id="homeCareChoices"></div>
             </dialog>

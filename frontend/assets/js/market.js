@@ -158,8 +158,8 @@
             clearTimeout(returnTimer);
             if (returnAnimation) {
                 const position = getComputedStyle(sprite).translate.split(' ');
-                x = parseFloat(position[0]) || 0;
-                y = parseFloat(position[1]) || 0;
+                x = Number.parseFloat(position[0]) || 0;
+                y = Number.parseFloat(position[1]) || 0;
                 returnAnimation.cancel();
                 returnAnimation = null;
                 sprite.style.translate = `${x}px ${y}px`;
@@ -451,7 +451,7 @@
         $('typeFilter').value = '';
         $('sortFilter').value = 'calidad';
         $('marketFilters').dispatchEvent(new Event('change', { bubbles: true }));
-        load(true);
+        void load(true);
     }
     $('confirmPurchase').addEventListener('click', buy);
     function closePurchase() {
@@ -478,7 +478,7 @@
     $('marketFilters').addEventListener('submit', (e) => {
         e.preventDefault();
         clearTimeout(searchTimer);
-        load(true);
+        void load(true);
     });
     $('typeFilter').onchange = () => load(true);
     $('categoryTabs').onclick = (event) => {
@@ -490,7 +490,7 @@
             .forEach((option) => {
                 option.setAttribute('aria-pressed', String(option === button));
             });
-        load(true);
+        void load(true);
     };
     $('sortFilter').onchange = () => load(true);
     $('resetFilters').onclick = resetFilters;

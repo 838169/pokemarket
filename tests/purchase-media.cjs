@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const chromaContext = { window: {} };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/purchase-chroma.js', 'utf8'), chromaContext);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/purchase-chroma.js', 'utf8'), chromaContext, { filename: require('node:path').resolve('frontend/assets/js/purchase-chroma.js') });
 const key = chromaContext.window.PokePurchaseChroma.apply;
 const pixels = new Uint8ClampedArray([
     0, 255, 0, 255, 255, 255, 255, 255, 255, 0, 0, 255, 0, 0, 0, 255, 20, 230, 30, 255,
@@ -126,7 +126,7 @@ function fixture({ source = '', reduced = false, blocked = false, pending = fals
             return next;
         },
         cancelAnimationFrame: (id) => frames.delete(id),
-    });
+    }, { filename: require('node:path').resolve('frontend/assets/js/purchase-celebration.js') });
     return {
         api: window.PokePurchaseCelebration,
         sounds,

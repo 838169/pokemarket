@@ -148,11 +148,11 @@ window.PokeWelcome = (() => {
                     resume() {
                         if (current() && wantsToPlay && suspended) {
                             suspended = false;
-                            play();
+                            void play();
                         }
                     },
                 };
-                play();
+                void play();
             };
             const releaseIntro = () => {
                 introController?.abort();
@@ -375,7 +375,7 @@ window.PokeWelcome = (() => {
                         )
                             return;
                         suspended = false;
-                        play();
+                        void play();
                     },
                 };
                 pauseButton.onclick = () => {
@@ -386,7 +386,7 @@ window.PokeWelcome = (() => {
                     } else {
                         wantsToPlay = true;
                         suspended = false;
-                        play();
+                        void play();
                     }
                 };
                 video.addEventListener('ended', () =>
@@ -420,9 +420,9 @@ window.PokeWelcome = (() => {
                     video.currentTime = 0;
                     wantsToPlay = true;
                     suspended = false;
-                    play();
+                    void play();
                 };
-                play();
+                void play();
             }
             function renderCelebration() {
                 const animated = !matchMedia('(prefers-reduced-motion: reduce)').matches;

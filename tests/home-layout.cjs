@@ -2,8 +2,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const context = { window: {} };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/pokemon-scale.js', 'utf8'), context);
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/home-layout.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/pokemon-scale.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/pokemon-scale.js') });
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/home-layout.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/home-layout.js') });
 const { plan, page } = context.window.PokeHomeLayout;
 const overlap = (a, b) =>
     a.left < b.left + b.width &&
@@ -137,7 +137,7 @@ assert.ok(
     Math.abs(trio[0].imageSize - alone.imageSize) < 1,
     'Adding companions does not change scale when there is room'
 );
-for (const bad of [undefined, null, -4, 0, NaN, Infinity, 'oops'])
+for (const bad of [undefined, null, -4, 0, Number.NaN, Number.POSITIVE_INFINITY, 'oops'])
     assert.equal(scale.factor(bad), scale.factor(1));
 for (const [width, height] of [
     [1790, 900],

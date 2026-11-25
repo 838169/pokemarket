@@ -193,7 +193,7 @@
     $('storeItems').onclick = (event) => {
         const button = event.target.closest('[data-store-buy]');
         if (!button || button.disabled) return;
-        if (food) buy(button.dataset.storeBuy);
+        if (food) void buy(button.dataset.storeBuy);
         else {
             previewProduct = button.dataset.storeBuy;
             previewQuantity = Number($('storePack').value);
@@ -226,7 +226,7 @@
         if (busy || purchaseCooldown || pending || !previewProduct || !$('ballPurchase').open)
             return;
         $('storePack').value = String(previewQuantity);
-        buy(previewProduct);
+        void buy(previewProduct);
     };
     $('storeCaptureTier')?.addEventListener('change', event => {
         captureTier = Number(event.target.value);
@@ -236,7 +236,7 @@
         if (model) render();
     });
     $('storeRetry').onclick = () => {
-        if (pending) buy(pending.body.tipo || 'poke');
+        if (pending) void buy(pending.body.tipo || 'poke');
     };
     E.ready
         .then(async () => {

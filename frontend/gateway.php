@@ -80,40 +80,71 @@ $base = $trainer
     : (($env['POKEMON_SERVICE_URL'] ?? '') ?: 'http://localhost:8001/pokemon-api/v1');
 $query = $_SERVER['QUERY_STRING'] ?? '';
 $target = rtrim($base, '/') . $endpoint . ($query === '' ? '' : '?' . $query);
-$context = stream_context_create(['http' => [
-    'method' => $method,
-    'header' => implode("\r\n", $headers),
-    'content' => $body ?: '',
-    'follow_location' => 0,
-    'ignore_errors' => true,
-    'timeout' => 20,
-]]);
-$upstream = @fopen($target, 'rb', false, $context);
-if ($upstream === false) {
+$upstream = curl_init($target);
+$upstreamStatus = 0;
+$upstreamHeaders = [];
+$committed = false;
+$streaming = !$trainer && ($_GET['progress'] ?? '') === '1';
+$https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+
+$sendHeaders = static function () use (
+    &$committed, &$upstreamStatus, &$upstreamHeaders, $trainer, $google, $endpoint, $streaming, $https
+): void {
+    if ($committed) return;
+    if ($upstreamStatus < 200 || $upstreamStatus > 599) {
+        gatewayError(502, 'Respuesta inválida del microservicio.');
+    }
+    $committed = true;
+    http_response_code($upstreamStatus);
+    header('Cache-Control: no-store');
+    if ($google) header('Referrer-Policy: no-referrer');
+    foreach ($upstreamHeaders as $line) {
+        if ($trainer && preg_match('/\ASet-Cookie:\s*(?:POKEMARKET_SESSION|POKEMARKET_AUTH)=/i', $line)) {
+            if ($https && !preg_match('/;\s*Secure(?:;|$)/i', $line)) $line .= '; Secure';
+            header($line, false);
+        } elseif (preg_match('/\A(?:Content-Type|X-Request-ID):/i', $line) ||
+            ($google && $upstreamStatus === 302 && preg_match('#\ALocation:\s*(?:https://accounts\.google\.com/o/oauth2/v2/auth\?[^\r\n]+|\.\./\.\./\.\./(?:catalogo\.php|login\.php\?google=(?:error|cuenta|correo|autenticador|registro)))\z#', $line)) ||
+            (!$trainer && str_starts_with($endpoint, '/sprites/') &&
+                preg_match('#\ALocation:\s*https://raw\.githubusercontent\.com/PokeAPI/sprites/#i', $line))) {
+            header($line, false);
+        }
+    }
+    if ($streaming) {
+        header('X-Accel-Buffering: no');
+        while (ob_get_level()) ob_end_flush();
+    }
+};
+
+$options = [
+    CURLOPT_CUSTOMREQUEST => $method,
+    CURLOPT_HTTPHEADER => $headers,
+    CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+    CURLOPT_FOLLOWLOCATION => false,
+    CURLOPT_CONNECTTIMEOUT => 20,
+    CURLOPT_TIMEOUT => 20,
+    CURLOPT_HEADERFUNCTION => static function ($curl, string $line) use (&$upstreamStatus, &$upstreamHeaders): int {
+        if (preg_match('#\AHTTP/\S+ ([1-5][0-9]{2})\b#', $line, $matches)) {
+            $upstreamStatus = (int) $matches[1];
+            $upstreamHeaders = [];
+        } elseif (trim($line) !== '') {
+            $upstreamHeaders[] = rtrim($line, "\r\n");
+        }
+        return strlen($line);
+    },
+    CURLOPT_WRITEFUNCTION => static function ($curl, string $chunk) use ($sendHeaders, $streaming): int {
+        $sendHeaders();
+        echo $chunk;
+        if ($streaming) flush();
+        return strlen($chunk);
+    },
+];
+if ($body !== false && $body !== '' && $method !== 'GET') {
+    $options[CURLOPT_POSTFIELDS] = $body;
+}
+curl_setopt_array($upstream, $options);
+$received = curl_exec($upstream);
+curl_close($upstream);
+if (!$committed && $received === false) {
     gatewayError(503, $trainer ? 'El servicio de Entrenadores no está disponible.' : 'El servicio de Pokémon no está disponible.');
 }
-$status = (int) (explode(' ', $http_response_header[0] ?? '')[1] ?? 502);
-if ($status < 200 || $status > 599) gatewayError(502, 'Respuesta inválida del microservicio.');
-http_response_code($status);
-header('Cache-Control: no-store');
-if ($google) header('Referrer-Policy: no-referrer');
-foreach ($http_response_header as $line) {
-    if (preg_match('/\A(?:Content-Type|X-Request-ID):/i', $line) ||
-        ($trainer && preg_match('/\ASet-Cookie:\s*(?:POKEMARKET_SESSION|POKEMARKET_AUTH)=/i', $line)) ||
-        ($google && $status === 302 && preg_match('#\ALocation:\s*(?:https://accounts\.google\.com/o/oauth2/v2/auth\?[^\r\n]+|\.\./\.\./\.\./(?:catalogo\.php|login\.php\?google=(?:error|cuenta|correo|autenticador|registro)))\z#', $line)) ||
-        (!$trainer && str_starts_with($endpoint, '/sprites/') &&
-            preg_match('#\ALocation:\s*https://raw\.githubusercontent\.com/PokeAPI/sprites/#i', $line))) {
-        header($line, false);
-    }
-}
-if (!$trainer && ($_GET['progress'] ?? '') === '1') {
-    header('X-Accel-Buffering: no');
-    while (ob_get_level()) ob_end_flush();
-    while (($line = fgets($upstream)) !== false) {
-        echo $line;
-        flush();
-    }
-} else {
-    fpassthru($upstream);
-}
-fclose($upstream);
+$sendHeaders();

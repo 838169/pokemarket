@@ -57,7 +57,7 @@
         <div class="profile-overview">
             <section id="trainerProgress" class="trainer-progress" aria-label="Progreso de entrenador" hidden>
                 <div class="trainer-rank"><span id="trainerLevel"></span><strong id="trainerRank"></strong></div>
-                <label for="trainerLevelProgress" id="trainerLevelCaption"></label>
+                <label for="trainerLevelProgress" id="trainerLevelCaption">Progreso de nivel</label>
                 <progress id="trainerLevelProgress" max="100" value="0"></progress>
                 <p id="trainerScore"></p>
             </section>
@@ -96,7 +96,7 @@
     </div>
 </dialog>
 <dialog id="accountSecurityDialog" class="game-option-dialog verification-dialog" aria-labelledby="accountSecurityDialogTitle">
-    <header><h2 id="accountSecurityDialogTitle"></h2><form method="dialog"><button aria-label="Volver al perfil" autofocus>×</button></form></header>
+    <header><h2 id="accountSecurityDialogTitle">Seguridad de la cuenta</h2><form method="dialog"><button aria-label="Volver al perfil" autofocus>×</button></form></header>
     <div class="account-security-step">
                 <form id="verifyAccountEmail" hidden>
                     <div id="verifyEmailFields" hidden>

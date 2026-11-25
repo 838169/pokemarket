@@ -151,7 +151,7 @@ async function main() {
             },
         },
     });
-    vm.runInContext(fs.readFileSync('frontend/assets/js/explore.js', 'utf8'), context);
+    vm.runInContext(fs.readFileSync('frontend/assets/js/explore.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/explore.js') });
     const flush = () => new Promise((resolve) => setImmediate(resolve));
     const key = (name, type = 'keydown') => events[type]({ key: name, preventDefault() {} });
     const repeat = () => timers.find((t) => t.ms === 16).fn();

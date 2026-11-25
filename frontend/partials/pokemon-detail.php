@@ -28,7 +28,7 @@
         </div>
         <div class="detail-info">
             <div class="detail-heading-meta"><span id="detalleNumero" class="detail-number"></span><span id="detalleCategoria" class="detail-category"></span></div>
-            <h2 id="detalleNombre"></h2>
+            <h2 id="detalleNombre">Detalles del Pokémon</h2>
             <div id="detalleTipos" class="detail-types"></div>
             <ul id="detalleFortalezas" class="detail-strengths" aria-label="Estadísticas base más altas"></ul>
             <div class="detail-stats">

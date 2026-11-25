@@ -444,7 +444,7 @@ use TrainerService\AdventureRules;
 
                             <span id="guiaPaso" class="guia-paso"></span>
 
-                            <h2 id="guiaTitulo"></h2>
+                            <h2 id="guiaTitulo">Guía de combate</h2>
 
                             <p id="guiaTexto"></p>
 
@@ -549,8 +549,8 @@ use TrainerService\AdventureRules;
                             </div>
                         </form>
                         <div class="duel-lobby-grid">
-                            <section aria-labelledby="duelInvitesTitle"><h3 id="duelInvitesTitle">Invitaciones</h3><div id="duelInvites" tabindex="0" role="group" aria-labelledby="duelInvitesTitle"></div></section>
-                            <section aria-labelledby="duelPlayersTitle"><h3 id="duelPlayersTitle">Entrenadores disponibles</h3><div id="duelPlayers" tabindex="0" role="group" aria-labelledby="duelPlayersTitle"></div></section>
+                            <section aria-labelledby="duelInvitesTitle"><h3 id="duelInvitesTitle">Invitaciones</h3><div id="duelInvites" role="group" aria-labelledby="duelInvitesTitle"></div></section>
+                            <section aria-labelledby="duelPlayersTitle"><h3 id="duelPlayersTitle">Entrenadores disponibles</h3><div id="duelPlayers" role="group" aria-labelledby="duelPlayersTitle"></div></section>
                         </div>
                         <section id="duelFriendList" aria-labelledby="duelFriendTitle" hidden>
                             <h3 id="duelFriendTitle">Elige a tu rival</h3>
@@ -562,7 +562,7 @@ use TrainerService\AdventureRules;
                 <div id="duelMatch" hidden></div>
                 <p id="duelStatus" role="status"></p>
                 <dialog id="duelMobilePanel" aria-labelledby="duelMobileTitle">
-                    <header><h3 id="duelMobileTitle"></h3><form method="dialog"><button aria-label="Cerrar" autofocus>×</button></form></header>
+                    <header><h3 id="duelMobileTitle">Duelo</h3><form method="dialog"><button aria-label="Cerrar" autofocus>×</button></form></header>
                     <div id="duelMobileContent"></div>
                 </dialog>
                 <dialog id="duelChallengePanel" aria-labelledby="duelChallengeTitle">

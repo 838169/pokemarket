@@ -44,7 +44,7 @@ const context = vm.createContext({
     setTimeout: () => 1,
     clearTimeout() {},
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/battle-effects.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/battle-effects.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/battle-effects.js') });
 const effects = context.window.PokeBattleEffects;
 async function run() {
     await effects.attack(null, null, 'fire');

@@ -376,7 +376,7 @@
             if (abilityForm) {
                 abilityForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    act(
+                    void act(
                         '/home/ability',
                         { pokemon_id: p.id, habilidad: abilityForm.elements.habilidad.value },
                         'POST',
@@ -402,7 +402,7 @@
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const names = options.filter((input) => input.checked).map((input) => input.value);
-            act(
+            void act(
                 '/home/moves',
                 { pokemon_id: p.id, movimientos: names },
                 'POST',

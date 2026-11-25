@@ -2,7 +2,7 @@ const assert = require('node:assert/strict'),
     fs = require('node:fs'),
     vm = require('node:vm');
 const context = { window: {} };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/explore-world.js') });
 const { wildlifeMotion, World } = context.window.PokeExploreWorld;
 const bush = {
     inicio: 100,
@@ -29,7 +29,7 @@ assert.equal(
     false,
     'Un Pokémon huyendo no se oculta mágicamente'
 );
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/wildlife-sprites.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/wildlife-sprites.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/wildlife-sprites.js') });
 const { wildlifeFrame, wildlifeDirection } = context.window.PokeExploreWorld;
 assert.equal(
     wildlifeFrame({ durations: [60, 30] }, 1250),

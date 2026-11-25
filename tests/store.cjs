@@ -109,7 +109,7 @@ vm.runInNewContext(fs.readFileSync('frontend/assets/js/store.js', 'utf8'), {
         setItem: (key, value) => memory.set(key, value),
         removeItem: (key) => memory.delete(key),
     },
-});
+}, { filename: require('node:path').resolve('frontend/assets/js/store.js') });
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 const click = (id) =>
     get('storeItems').onclick({

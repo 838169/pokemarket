@@ -340,7 +340,7 @@ $googleAvailable = !empty($env['GOOGLE_OAUTH_CLIENT_ID']) && !empty($env['GOOGLE
                     </form>
                 </dialog>
                 <dialog id="accountLoginDialog" class="game-option-dialog verification-dialog" aria-labelledby="accountLoginTitle">
-                    <header><h2 id="accountLoginTitle"></h2><form method="dialog"><button aria-label="Cerrar">×</button></form></header>
+                    <header><h2 id="accountLoginTitle">Verifica tu identidad</h2><form method="dialog"><button aria-label="Cerrar">×</button></form></header>
                     <form id="accountLoginForm">
                         <p id="accountLoginHelp" class="verification-description" hidden></p>
                         <div class="form-group" id="recoveryEmailGroup"><label for="recoveryEmail">Correo</label><input class="form-control" type="email" maxlength="150" id="recoveryEmail" autocomplete="email"></div>

@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const context = { window: {}, requestAnimationFrame: () => 1 };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/explore-world.js') });
 const { project, unproject, walkable } = context.window.PokeExploreWorld;
 const World = context.window.PokeExploreWorld.World;
 const { environmentAt } = context.window.PokeExploreWorld;

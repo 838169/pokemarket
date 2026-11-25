@@ -35,7 +35,7 @@ final class AbilityRules
 
     private static function data(): array
     {
-        static $data;
+        static $data = null;
         return $data ??= json_decode(
             file_get_contents(dirname(__DIR__) . '/config/ability_catalog.json'),
             true,

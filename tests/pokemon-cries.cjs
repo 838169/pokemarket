@@ -39,8 +39,8 @@ const context = vm.createContext({
         addEventListener: (name, fn) => (events[name] = fn),
     },
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/pokemon-cries-catalog.js', 'utf8'), context);
-vm.runInContext(fs.readFileSync('frontend/assets/js/pokemon-cries.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/pokemon-cries-catalog.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/pokemon-cries-catalog.js') });
+vm.runInContext(fs.readFileSync('frontend/assets/js/pokemon-cries.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/pokemon-cries.js') });
 const cry = context.window.PokePokemonCry;
 for (let id = 1; id <= 1025; id++) {
     const filename = context.window.PokeCryFiles[id] || `${id}.ogg`;

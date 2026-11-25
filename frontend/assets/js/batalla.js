@@ -290,7 +290,7 @@ function mostrarAtaques() {
 }
 
 function continuarTurno() {
-    if (turnoRival()) realizarAccion('rival');
+    if (turnoRival()) void realizarAccion('rival');
     else mostrarAtaques();
 }
 
@@ -824,11 +824,11 @@ async function cargarEquipos() {
             return;
         }
         if (online.duelos.some((duel) => duel.estado === 'activa')) {
-            abrirDuelos(online.duelos.some((duel) => duel.estado === 'activa' && duel.entre_amigos));
+            void abrirDuelos(online.duelos.some((duel) => duel.estado === 'activa' && duel.entre_amigos));
             return;
         }
         if (new URLSearchParams(location.search).get('sala') === 'amigos') {
-            abrirDuelos(true);
+            void abrirDuelos(true);
             return;
         }
         let practice;
@@ -956,7 +956,7 @@ byId('duelWagerForm').addEventListener('submit', (event) => {
         byId('duelWagerError').textContent = 'Elige un monto entre 1 y 1.000.000.';
         return;
     }
-    requestDuels({ accion: 'proponer_apuesta', id: duelWagerPanel.dataset.id, monto });
+    void requestDuels({ accion: 'proponer_apuesta', id: duelWagerPanel.dataset.id, monto });
 });
 byId('duelChallengePanel').addEventListener('cancel', (event) => event.preventDefault());
 let mobileDuelList, mobileDuelOrigin;
@@ -1257,8 +1257,8 @@ async function abrirDuelos(friends = false) {
     duelRoom.hidden = false;
     duelRoom.classList.toggle('duel-motion', PokeMarket.animacionesActivas());
     byId('teamDuelsTitle').focus();
-    requestDuels();
-    duelPoll = setInterval(() => { if (!document.hidden) { actualizarRelojDuelo(); requestDuels(); } }, 1000);
+    void requestDuels();
+    duelPoll = setInterval(() => { if (!document.hidden) { actualizarRelojDuelo(); void requestDuels(); } }, 1000);
     try {
         const { equipos } = await PokeMarket.trainer('/teams');
         if (duelRoom.hidden) return;
@@ -1304,7 +1304,7 @@ byId('duelSearch').addEventListener('submit', (event) => {
         byId('duelStatus').textContent = 'Elige al menos un Pokémon para combatir.';
         return;
     }
-    requestDuels({ accion: 'buscar', equipo_id: Number(byId('duelTeam').value), alineacion: alineacionDuelo() });
+    void requestDuels({ accion: 'buscar', equipo_id: Number(byId('duelTeam').value), alineacion: alineacionDuelo() });
 });
 byId('duelStop').addEventListener('click', () => requestDuels({ accion: 'salir' }));
 duelRoom.addEventListener('click', (event) => {
@@ -1338,7 +1338,7 @@ duelRoom.addEventListener('click', (event) => {
         return;
     }
     if (['sin_apuesta', 'igualar_apuesta', 'propuesta_rapida'].includes(accion)) {
-        requestDuels({ accion: 'proponer_apuesta', id: duelWagerPanel.dataset.id, monto: accion === 'sin_apuesta' ? 0 : Number(value) });
+        void requestDuels({ accion: 'proponer_apuesta', id: duelWagerPanel.dataset.id, monto: accion === 'sin_apuesta' ? 0 : Number(value) });
         return;
     }
     if ((accion === 'atacar' || accion === 'cambiar') && performance.now() < duelIntro) return;
@@ -1349,7 +1349,7 @@ duelRoom.addEventListener('click', (event) => {
         byId('duelStatus').textContent = 'Elige qué Pokémon quieres llevar.';
         return;
     }
-    requestDuels({ accion, id, equipo_id, alineacion, rival: Number(value), movimiento: value, pokemon_id: Number(value) });
+    void requestDuels({ accion, id, equipo_id, alineacion, rival: Number(value), movimiento: value, pokemon_id: Number(value) });
 });
 
 document
@@ -1358,9 +1358,9 @@ document
         button.addEventListener('click', () => {
             if (button.dataset.modo === 'equipos') {
                 if (window.PokeDuos) PokeDuos.open();
-                else abrirDuelos();
+                else void abrirDuelos();
             }
-            else if (button.dataset.modo === 'amigos') abrirDuelos(true);
+            else if (button.dataset.modo === 'amigos') void abrirDuelos(true);
             else abrirConfirmacion(button.dataset.modo);
         })
     );
@@ -1424,7 +1424,7 @@ byId('manualVolver').addEventListener('click', cerrarManual);
 manual.addEventListener('close', () => byId('ayudaBatalla').setAttribute('aria-expanded', 'false'));
 byId('manualPractica').addEventListener('click', () => {
     cerrarManual();
-    iniciarPractica();
+    void iniciarPractica();
 });
 byId('ocultarGuia').addEventListener('click', () => {
     if (procesando) return;
@@ -1478,4 +1478,4 @@ document.addEventListener('keydown', (event) => {
 });
 PokeWager.init(actualizarInicio);
 actualizarInicio();
-cargarEquipos();
+void cargarEquipos();

@@ -45,7 +45,7 @@
                 <div class="equipos-actions">
                     <form id="formEquipo" class="crear-equipo">
                         <input
-                            id="nombreEquipo"
+                            id="nombreEquipo" aria-label="Nombre del equipo"
                             type="text"
                             maxlength="100"
                             placeholder="Nombre del equipo"
@@ -102,7 +102,7 @@
                 <div class="detail-image-area"><img id="detalleImagen" src="" alt="" draggable="false" /></div>
                 <div class="detail-info">
                     <span id="detalleNumero" class="detail-number"></span>
-                    <h2 id="detalleNombre"></h2>
+                    <h2 id="detalleNombre">Detalles del Pokémon</h2>
                     <div id="detalleTipos" class="detail-types"></div>
                     <p id="detalleDescripcion" class="detail-description"></p>
                     <div class="detail-stats">

@@ -76,6 +76,6 @@ async function verificarRegistro(ruta, body) {
 
 verificacion.addEventListener('submit', (event) => {
     event.preventDefault();
-    verificarRegistro('/auth/register-code', { codigo: codigo.value });
+    void verificarRegistro('/auth/register-code', { codigo: codigo.value });
 });
 reenviar.addEventListener('click', () => verificarRegistro('/auth/register-resend', {}));

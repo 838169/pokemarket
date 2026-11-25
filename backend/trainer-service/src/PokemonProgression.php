@@ -10,7 +10,7 @@ final class PokemonProgression
 
     private static function data(): array
     {
-        static $data;
+        static $data = null;
         return $data ??= json_decode(
             file_get_contents(dirname(__DIR__) . '/config/progression_catalog.json'),
             true,

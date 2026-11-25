@@ -121,7 +121,7 @@ const context = {
     queueMicrotask: (fn) => fn(),
     PokeAudioMixer: { create: () => player, button: () => () => {} },
 };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/game-session.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/game-session.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/game-session.js') });
 const host = context.window.PokeGameAudio;
 assert.equal(loading.hidden, true, 'Evita destellos en cargas rápidas');
 [...timers.values()].find(({ delay }) => delay === 180).fn();

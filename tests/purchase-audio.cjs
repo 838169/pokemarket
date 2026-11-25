@@ -55,7 +55,7 @@ const context = {
         },
     },
 };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/purchase-audio.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/purchase-audio.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/purchase-audio.js') });
 const audio = context.window.PokePurchaseAudio;
 audio.prepare();
 assert.equal(tracks.length, 6);

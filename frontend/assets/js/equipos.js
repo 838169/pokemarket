@@ -361,4 +361,4 @@ formulario.addEventListener('submit', async (event) => {
     }
 });
 
-cargarDatos();
+void cargarDatos();

@@ -86,9 +86,9 @@ const context = vm.createContext({
     PokeBattleEffects: { onAudioStatus() {}, color: () => '#ff9977', finish() {}, setScene() {} },
     PokeWager: { init() {}, choice: () => offer, confirm: async () => confirmation },
 });
-vm.runInContext(source, context);
+vm.runInContext(source, context, { filename: require('node:path').resolve('frontend/assets/js/batalla.js') });
 vm.runInContext('globalThis.originalRequestDuels = requestDuels;', context);
-vm.runInContext(fs.readFileSync('frontend/assets/js/battle-tutorial.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/battle-tutorial.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/battle-tutorial.js') });
 context.PokeTutorial = context.window.PokeTutorial;
 vm.runInContext('abrirCampo = (state) => { globalThis.opened = state; };', context);
 async function run() {

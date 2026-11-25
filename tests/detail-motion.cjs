@@ -77,7 +77,7 @@ const context = {
     document,
     localStorage: { getItem: () => null },
 };
-vm.runInNewContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context);
+vm.runInNewContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/api.js') });
 const api = context.window.PokeMarket;
 const pokemon = { id: 25, nombre: 'Pikachu', tipos: [], habilidades: [], altura: 0.4, peso: 6 };
 const flush = async () => {

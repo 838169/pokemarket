@@ -23,8 +23,13 @@ def download(url):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--pikachu-voice', type=Path, help='Previously downloaded Showdown voice file')
+    parser.add_argument('--pikachu-voice', type=Path, help='Previously downloaded Showdown voice file within the project')
     args = parser.parse_args()
+    voice_path = None
+    if args.pikachu_voice is not None:
+        voice_path = args.pikachu_voice.resolve()
+        if not voice_path.is_relative_to(ROOT) or voice_path.suffix.lower() != '.mp3' or not voice_path.is_file():
+            parser.error('--pikachu-voice requires an MP3 file within the project')
     archive = download(ARCHIVE)
     clips = {}
     exceptions = {}
@@ -42,7 +47,7 @@ def main():
             if extension != 'ogg':
                 exceptions[pokemon_id] = filename
             clips[filename] = data
-    voice = args.pikachu_voice.read_bytes() if args.pikachu_voice else download(VOICE)
+    voice = voice_path.read_bytes() if voice_path else download(VOICE)
     if not (voice.startswith(b"ID3") or voice[:1] == b"\xff"):
         raise RuntimeError("Invalid Pikachu voice MP3")
     clips["pikachu-voice.mp3"] = voice

@@ -69,6 +69,8 @@ npm run test:integration
 
 El informe se genera en `reports/quality-report.md` y `reports/quality-report.json`. El comando devuelve error si falla una comprobación. Las pruebas de integración crean cuentas temporales y eliminan **solo sus propios datos** al terminar.
 
+Con Node.js 22 o posterior, ejecuta `npm run test:coverage` para generar `coverage.lcov` con las pruebas JavaScript. El informe identifica los archivos del frontend que ejecutan las pruebas; PHP y los archivos que no se cargan en las pruebas quedan fuera de esta medición. Para importarlo en SonarQube Cloud se necesita un análisis con SonarScanner configurado con `sonar.javascript.lcov.reportPaths=coverage.lcov`.
+
 Las herramientas npm son de desarrollo; **no son necesarias para jugar**. El índice de Pokémon ya está incluido y no requiere regenerarse para ejecutar el proyecto.
 
 ## Dónde está cada cosa

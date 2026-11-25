@@ -62,8 +62,8 @@ const ctx = vm.createContext({
         removeEventListener() {},
     },
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), ctx);
-vm.runInContext(fs.readFileSync('frontend/assets/js/wildlife-sprites.js', 'utf8'), ctx);
+vm.runInContext(fs.readFileSync('frontend/assets/js/explore-world.js', 'utf8'), ctx, { filename: require('node:path').resolve('frontend/assets/js/explore-world.js') });
+vm.runInContext(fs.readFileSync('frontend/assets/js/wildlife-sprites.js', 'utf8'), ctx, { filename: require('node:path').resolve('frontend/assets/js/wildlife-sprites.js') });
 const World = ctx.window.PokeExploreWorld.World;
 const world = new World(
     canvas(),

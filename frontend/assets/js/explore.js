@@ -706,7 +706,7 @@
         queuedDestination = null;
         world.queued = null;
         if (state.encuentro || !result) stopHeld();
-        else if (next && !followingWildlife) travel(...next);
+        else if (next && !followingWildlife) void travel(...next);
     }
     async function approachWildlife(id = state?.avistamiento?.id) {
         const available = () => id && state?.avistamiento?.id === id &&
@@ -718,7 +718,8 @@
         followingWildlife = id;
         $('wildlifeApproach').textContent = 'Acercándote…';
         try {
-            while (available() && (busy || walkingQueue.length || Date.now() < visualEndsAt)) {
+            const isMoving = () => busy || walkingQueue.length || Date.now() < visualEndsAt;
+            while (available() && isMoving()) {
                 await delay(60);
             }
             if (!available()) return;
@@ -856,14 +857,14 @@
     }
     encounter.addEventListener('cancel', (event) => {
         event.preventDefault();
-        leave();
+        void leave();
     });
     $('leaveEncounter').onclick = leave;
     $('exploreReturn').onclick = () => travel(...(map.campamento || map.inicio));
 
     $('exploreSites').onclick = (event) => {
         const b = event.target.closest('[data-site]');
-        if (b) travel(...map.puntos[Number(b.dataset.site)]);
+        if (b) void travel(...map.puntos[Number(b.dataset.site)]);
     };
     function direction(name, steps = 2) {
         if (world?.previewStep && state?.tiempo_ms !== undefined) {
@@ -890,7 +891,7 @@
             firstStep ??= [x, y];
             if (map.puntos.some((p) => p[0] === x && p[1] === y)) break;
         }
-        if (firstStep) travel(x, y, firstStep);
+        if (firstStep) void travel(x, y, firstStep);
         else
             message(
                 'Hay un obstáculo en esa dirección. Prueba otra dirección con las teclas o la cruceta.'
@@ -1029,7 +1030,7 @@
         if (guideIndex < 2) {
             guideIndex++;
             renderGuide();
-        } else closeGuide();
+        } else void closeGuide();
     };
     $('guidePrevious').onclick = () => {
         guideIndex = Math.max(0, guideIndex - 1);
@@ -1039,7 +1040,7 @@
     $('exploreHelp').onclick = openGuide;
     guide.addEventListener('cancel', (event) => {
         event.preventDefault();
-        closeGuide();
+        void closeGuide();
     });
     const music = PokeAudioMixer.create({ volume: 0.2 });
     music.scene('assets/audio/home-meadow.mp3');
@@ -1101,5 +1102,5 @@
             errorOverlay(e, boot);
         }
     }
-    boot();
+    void boot();
 })();

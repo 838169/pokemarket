@@ -48,7 +48,7 @@
         event.preventDefault();
         if (busy) return;
         query = username.value;
-        refresh(null, false, event.submitter || form.querySelector('button'));
+        void refresh(null, false, event.submitter || form.querySelector('button'));
     });
     username.addEventListener('input', () => {
         query = '';
@@ -56,8 +56,8 @@
     });
     page.addEventListener('click', (event) => {
         const control = event.target.closest('[data-friend]');
-        if (control && !control.disabled) refresh({ accion: control.dataset.friend, id: Number(control.dataset.id) }, false, control);
+        if (control && !control.disabled) void refresh({ accion: control.dataset.friend, id: Number(control.dataset.id) }, false, control);
     });
-    refresh();
-    setInterval(() => { if (!document.hidden) refresh(null, true); }, 3000);
+    void refresh();
+    setInterval(() => { if (!document.hidden) void refresh(null, true); }, 3000);
 })();

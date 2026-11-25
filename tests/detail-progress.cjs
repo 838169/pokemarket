@@ -9,7 +9,7 @@ const context = vm.createContext({
     TextDecoder,
     fetch: async () => response,
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/api.js') });
 function stream(events) {
     const bytes = new TextEncoder().encode(events.map(JSON.stringify).join('\n') + '\n');
     // Split both JSON records and multibyte characters across transport chunks.

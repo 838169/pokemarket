@@ -50,9 +50,9 @@ const context = vm.createContext({
     },
     clearInterval: (id) => timers.delete(id),
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/audio-mixer.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/audio-mixer.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/audio-mixer.js') });
 context.PokeAudioMixer = context.window.PokeAudioMixer;
-vm.runInContext(fs.readFileSync('frontend/assets/js/home-music.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/home-music.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/home-music.js') });
 const music = context.window.PokeHomeMusic;
 const flush = async () => {
     await Promise.resolve();

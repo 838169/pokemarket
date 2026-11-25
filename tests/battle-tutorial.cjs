@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const context = vm.createContext({ window: {}, structuredClone });
 for (const file of ['battle-practice', 'battle-tutorial'])
-    vm.runInContext(fs.readFileSync(`frontend/assets/js/${file}.js`, 'utf8'), context);
+    vm.runInContext(fs.readFileSync(`frontend/assets/js/${file}.js`, 'utf8'), context, { filename: require('node:path').resolve(`frontend/assets/js/${file}.js`) });
 const game = context.window.PokePractice;
 const guide = context.window.PokeTutorial;
 let state = game.confirmInitiative(game.create(), 'jugador');

@@ -13,7 +13,6 @@ final class DetailStream
     {
         ini_set('zlib.output_compression', '0');
         header('Content-Type: application/x-ndjson; charset=UTF-8');
-        header('Access-Control-Allow-Origin: *');
         header('Cache-Control: no-cache, no-store');
         header('X-Accel-Buffering: no');
         while (ob_get_level() > 0) {

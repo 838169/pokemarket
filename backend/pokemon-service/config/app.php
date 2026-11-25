@@ -11,5 +11,4 @@ return [
     'max_catalog_limit' => 20,
     'default_catalog_limit' => 12,
     'max_batch_ids' => 20,
-    'cors_origin' => '*',
 ];

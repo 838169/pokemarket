@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
 const context = vm.createContext({ window: {}, structuredClone });
-vm.runInContext(fs.readFileSync('frontend/assets/js/battle-practice.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/battle-practice.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/battle-practice.js') });
 const game = context.window.PokePractice;
 assert.throws(() => game.turn(game.create(), 'water-gun'), /confirma/);
 const rivalFirst = game.confirmInitiative(game.create(), 'rival');

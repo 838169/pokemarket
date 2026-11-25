@@ -162,7 +162,7 @@ const context = vm.createContext({
         },
     },
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/welcome.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/welcome.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/welcome.js') });
 const welcome = context.window.PokeWelcome;
 const flush = async () => {
     for (let i = 0; i < 12; i++) await Promise.resolve();

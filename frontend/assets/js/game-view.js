@@ -198,7 +198,7 @@
         });
         verifyEmail.onsubmit = (event) => {
             event.preventDefault();
-            accountAction(event.submitter, 'verify-email', { codigo: get('verifyEmailCode').value }, async () => {
+            void accountAction(event.submitter, 'verify-email', { codigo: get('verifyEmailCode').value }, async () => {
                 securityDialog.close();
                 await loadSecurity();
             });
@@ -207,7 +207,7 @@
             event.preventDefault();
             const password = get('accountTotpPassword').value;
             setupTotp.reset();
-            accountAction(event.submitter, 'totp-setup', { password }, (result) => {
+            void accountAction(event.submitter, 'totp-setup', { password }, (result) => {
                 get('accountTotpSecret').textContent = result.clave;
                 setupTotp.hidden = true;
                 get('accountSecurityDialogTitle').textContent = 'Vincular tu app';
@@ -217,7 +217,7 @@
         };
         enableTotp.onsubmit = (event) => {
             event.preventDefault();
-            accountAction(event.submitter, 'totp-enable', { codigo: get('accountTotpCode').value }, async () => {
+            void accountAction(event.submitter, 'totp-enable', { codigo: get('accountTotpCode').value }, async () => {
                 securityDialog.close();
                 await loadSecurity();
             });
@@ -318,7 +318,7 @@
             edit.hidden = true;
             edit.setAttribute('aria-expanded', 'false');
             profile.showModal();
-            loadProfile();
+            void loadProfile();
             feedback.textContent = '';
             loadSecurity().catch((error) => { get('accountTwoStepState').textContent = error.message; });
         };

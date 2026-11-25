@@ -51,7 +51,7 @@ assert.equal(index.length, 1025);
 assert.equal(new Set(index.map((p) => p.id)).size, index.length);
 for (const file of readdirSync('tests'))
     assert.ok(
-        !/preview|fixture.*\.php$/.test(file),
+        !/(?:preview|fixture.*\.php$)/.test(file),
         `Página de prueba temporal pendiente: ${file}`
     );
 assert.ok(

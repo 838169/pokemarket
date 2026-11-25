@@ -20,6 +20,7 @@ Thumbs.db
 .local-backups/
 tools/economy-data/*.csv
 node_modules/
+/coverage.lcov
 reports/*
 !reports/.gitkeep
 backend/trainer-service/storage/

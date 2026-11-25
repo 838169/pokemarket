@@ -17,7 +17,7 @@ const context = vm.createContext({
         }
     },
 });
-vm.runInContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context);
+vm.runInContext(fs.readFileSync('frontend/assets/js/api.js', 'utf8'), context, { filename: require('node:path').resolve('frontend/assets/js/api.js') });
 const api = context.window.PokeMarket;
 const image = {
     dataset: {},

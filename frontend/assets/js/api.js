@@ -359,7 +359,7 @@ window.PokeMarket = (() => {
             { duration: 160, easing: 'ease-in', fill: 'forwards' }
         );
         cierreDetalle = cierre;
-        cierre.finished
+        void cierre.finished
             .catch(() => {})
             .then(() => {
                 if (cierreDetalle !== cierre) return;

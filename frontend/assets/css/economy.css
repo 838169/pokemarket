@@ -61,10 +61,10 @@
     background: #e3c5760c;
     border: 1px solid #edcc7738;
     border-radius: 9px;
-    font-variant-numeric: tabular-nums;
     white-space: nowrap;
     min-height: 44px;
     font: inherit;
+    font-variant-numeric: tabular-nums;
     cursor: pointer;
 }
 @media (max-width: 1150px) {

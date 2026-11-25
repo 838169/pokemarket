@@ -112,13 +112,13 @@
             if (view === frame.contentWindow) finishView();
         },
         navigate(path, push = true) {
-            const url = new URL(path, location.href);
-            if (
-                url.origin !== location.origin ||
-                !pages.has(url.pathname.split('/').pop()) ||
-                url.pathname !== basePath + url.pathname.split('/').pop()
-            )
-                return false;
+            const requested = new URL(path, location.href);
+            if (requested.origin !== location.origin) return false;
+            const nextPage = [...pages].find((page) => requested.pathname === basePath + page);
+            if (!nextPage) return false;
+            const url = new URL(nextPage, new URL('.', location.href));
+            url.search = requested.search;
+            url.hash = requested.hash;
             url.searchParams.delete('_contenido');
             if (frame.contentWindow?.pokeNavigationLocked?.()) {
                 const current = new URL(expectedView);
@@ -131,7 +131,6 @@
             listener = null;
             viewEpoch++;
             window.PokePokemonCry?.stop();
-            const nextPage = url.pathname.split('/').pop();
             music.scene(
                 nextPage === 'coleccion.php' || nextPage === 'explorar.php'
                     ? 'assets/audio/home-meadow.mp3'
