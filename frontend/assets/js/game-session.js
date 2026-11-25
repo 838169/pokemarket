@@ -141,23 +141,23 @@
             const room = nextPage === 'batalla.php' ? requested.searchParams.get('sala') : null;
             const query = room === 'amigos' ? '?_contenido=1&sala=amigos' :
                 room === 'duos' ? '?_contenido=1&sala=duos' : '?_contenido=1';
-            const viewUrl = new URL(nextPage + query, new URL('.', location.href)).href;
+            const viewPath = './' + nextPage + query;
             transition?.skipTransition();
             transition = null;
-            expectedView = viewUrl;
+            expectedView = new URL(viewPath, location.href).href;
             beginLoading();
             const epoch = viewEpoch;
             const navigateView = () => {
                 if (epoch !== viewEpoch) return;
                 try {
                     if (frame.contentWindow?.location.href !== 'about:blank') {
-                        frame.contentWindow.location.replace(viewUrl);
+                        frame.contentWindow.location.replace(viewPath);
                         return;
                     }
                 } catch (_) {
                     // Safari may expose an inaccessible frame after a network error.
                 }
-                frame.src = viewUrl;
+                frame.src = viewPath;
             };
             if (!reducedMotion?.matches && document.startViewTransition && viewEpoch > 1) {
                 try {

@@ -150,7 +150,7 @@ second.setVolume(0.99);
 assert.equal(tracks.length, beforeStale, 'An unloaded view cannot change the soundtrack');
 assert.notEqual(volumes.at(-1), 0.99, 'An old timer cannot alter the current volume');
 host.navigate('http://localhost/pokemarket/batalla.php?sala=amigos&extra=1#demo');
-const embeddedBattle = new URL(frame.src);
+const embeddedBattle = new URL(frame.src, location.href);
 assert.equal(embeddedBattle.pathname, '/pokemarket/batalla.php');
 assert.equal(embeddedBattle.searchParams.get('sala'), 'amigos');
 assert.equal(embeddedBattle.searchParams.has('extra'), false);
