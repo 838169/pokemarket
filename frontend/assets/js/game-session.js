@@ -137,23 +137,27 @@
                     : 'assets/audio/catalog-theme.ogg'
             );
             music.setVolume(0.25);
-            url.searchParams.set('_contenido', '1');
+            // The frame only needs the embedded view flag and the two supported battle rooms.
+            const room = nextPage === 'batalla.php' ? requested.searchParams.get('sala') : null;
+            const query = room === 'amigos' ? '?_contenido=1&sala=amigos' :
+                room === 'duos' ? '?_contenido=1&sala=duos' : '?_contenido=1';
+            const viewUrl = new URL(nextPage + query, new URL('.', location.href)).href;
             transition?.skipTransition();
             transition = null;
-            expectedView = url.href;
+            expectedView = viewUrl;
             beginLoading();
             const epoch = viewEpoch;
             const navigateView = () => {
                 if (epoch !== viewEpoch) return;
                 try {
                     if (frame.contentWindow?.location.href !== 'about:blank') {
-                        frame.contentWindow.location.replace(url.href);
+                        frame.contentWindow.location.replace(viewUrl);
                         return;
                     }
                 } catch (_) {
                     // Safari may expose an inaccessible frame after a network error.
                 }
-                frame.src = url.href;
+                frame.src = viewUrl;
             };
             if (!reducedMotion?.matches && document.startViewTransition && viewEpoch > 1) {
                 try {
